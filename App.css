@@ -1,6 +1,6 @@
-/* ================================
+/* =========================================================
    GLOBAL
-================================ */
+========================================================= */
 
 * {
     box-sizing: border-box;
@@ -8,86 +8,134 @@
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:
+        Inter,
+        Arial,
+        Helvetica,
+        sans-serif;
 
     min-height: 100vh;
 
+    padding: 40px 20px;
+
+    color: #172033;
+
     background:
         radial-gradient(
-            circle at top left,
-            #e0e7ff 0%,
-            transparent 35%
+            circle at 10% 15%,
+            rgba(139, 92, 246, 0.18),
+            transparent 30%
         ),
         radial-gradient(
-            circle at bottom right,
-            #dbeafe 0%,
-            transparent 35%
+            circle at 90% 80%,
+            rgba(59, 130, 246, 0.15),
+            transparent 30%
         ),
-        #f8fafc;
-
-    color: #1e293b;
-
-    padding: 40px 20px;
+        linear-gradient(
+            135deg,
+            #fafaff 0%,
+            #f4f6ff 50%,
+            #f8fbff 100%
+        );
 }
 
 
-/* ================================
+/* =========================================================
    MAIN CONTAINER
-================================ */
+========================================================= */
 
 .container {
+    position: relative;
+
     width: 100%;
-    max-width: 760px;
+    max-width: 950px;
 
     margin: 0 auto;
 
-    padding: 40px;
+    padding: 45px;
 
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.86);
 
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
 
-    border: 1px solid rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.95);
 
-    border-radius: 24px;
+    border-radius: 26px;
 
     box-shadow:
-        0 25px 50px rgba(15, 23, 42, 0.12),
-        0 10px 20px rgba(15, 23, 42, 0.06);
+        0 30px 70px rgba(80, 72, 140, 0.12),
+        0 10px 25px rgba(80, 72, 140, 0.06);
 
-    animation: containerAppear 0.6s ease;
+    overflow: hidden;
+
+    animation: containerAppear 0.7s ease;
 }
 
 
-/* ================================
+/* Decorative background */
+
+.container::before {
+    content: "";
+
+    position: absolute;
+
+    width: 220px;
+    height: 220px;
+
+    top: -120px;
+    right: -80px;
+
+    border-radius: 50%;
+
+    background: rgba(139, 92, 246, 0.08);
+
+    filter: blur(5px);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
    HEADER
-================================ */
+========================================================= */
 
 .header {
+    position: relative;
+
     text-align: center;
 
-    margin-bottom: 35px;
+    margin-bottom: 40px;
 }
 
 
 .header h1 {
     margin-bottom: 12px;
 
-    font-size: 38px;
+    font-size: 44px;
+
     font-weight: 800;
 
-    letter-spacing: -1px;
+    letter-spacing: -1.5px;
 
-    background: linear-gradient(
-        135deg,
-        #4f46e5,
-        #7c3aed,
-        #2563eb
-    );
+    line-height: 1.1;
+
+    background:
+        linear-gradient(
+            135deg,
+            #633cff,
+            #4f46e5,
+            #3b82f6
+        );
 
     -webkit-background-clip: text;
+    background-clip: text;
+
     -webkit-text-fill-color: transparent;
 }
 
@@ -95,39 +143,55 @@ body {
 .header p {
     color: #64748b;
 
-    font-size: 15px;
+    font-size: 16px;
 
     line-height: 1.6;
 }
 
 
-/* ================================
+/* =========================================================
    TASK FORM
-================================ */
+========================================================= */
 
 .task-form {
     display: flex;
 
-    gap: 12px;
+    align-items: center;
 
-    margin-bottom: 35px;
+    gap: 14px;
+
+    margin-bottom: 40px;
 }
 
+
+/* =========================================================
+   INPUT
+========================================================= */
 
 .task-form input {
     flex: 1;
 
-    padding: 15px 18px;
+    min-width: 0;
 
-    border: 2px solid #e2e8f0;
+    height: 58px;
 
-    border-radius: 12px;
+    padding: 0 20px;
 
-    background-color: #ffffff;
+    border: 1px solid #dfe3ef;
 
-    color: #1e293b;
+    border-radius: 14px;
+
+    background: rgba(255, 255, 255, 0.95);
+
+    color: #172033;
+
+    font-family: inherit;
 
     font-size: 15px;
+
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.02),
+        0 3px 10px rgba(15, 23, 42, 0.03);
 
     transition:
         border-color 0.25s ease,
@@ -142,48 +206,57 @@ body {
 
 
 .task-form input:hover {
-    border-color: #cbd5e1;
+    border-color: #c4b5fd;
 }
 
 
 .task-form input:focus {
     outline: none;
 
-    border-color: #6366f1;
-
-    box-shadow:
-        0 0 0 4px rgba(99, 102, 241, 0.12);
+    border-color: #8b5cf6;
 
     transform: translateY(-1px);
+
+    box-shadow:
+        0 0 0 4px rgba(139, 92, 246, 0.08),
+        0 8px 20px rgba(99, 102, 241, 0.08);
 }
 
 
-/* ================================
+/* =========================================================
    ADD BUTTON
-================================ */
+========================================================= */
 
 .task-form button {
-    padding: 0 24px;
+    position: relative;
+
+    height: 58px;
+
+    padding: 0 28px;
 
     border: none;
 
-    border-radius: 12px;
+    border-radius: 14px;
 
-    background: linear-gradient(
-        135deg,
-        #4f46e5,
-        #7c3aed
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #633cff,
+            #4f46e5
+        );
 
     color: white;
 
+    font-family: inherit;
+
     font-size: 15px;
-    font-weight: 600;
+
+    font-weight: 700;
 
     cursor: pointer;
 
     box-shadow:
-        0 8px 20px rgba(79, 70, 229, 0.25);
+        0 10px 22px rgba(99, 60, 255, 0.25);
 
     transition:
         transform 0.25s ease,
@@ -195,66 +268,106 @@ body {
 .task-form button:hover {
     transform: translateY(-2px);
 
-    box-shadow:
-        0 12px 25px rgba(79, 70, 229, 0.35);
-
     filter: brightness(1.05);
+
+    box-shadow:
+        0 15px 28px rgba(99, 60, 255, 0.32);
 }
 
 
 .task-form button:active {
     transform: translateY(0);
+
+    box-shadow:
+        0 7px 15px rgba(99, 60, 255, 0.22);
 }
 
 
-/* ================================
+/* =========================================================
    TASK LIST
-================================ */
+========================================================= */
+
+.task-list {
+    position: relative;
+}
+
 
 .task-list h2 {
-    margin-bottom: 18px;
+    display: flex;
 
-    font-size: 21px;
-    font-weight: 700;
+    align-items: center;
 
-    color: #1e293b;
+    gap: 10px;
+
+    margin-bottom: 20px;
+
+    color: #172033;
+
+    font-size: 22px;
+
+    font-weight: 750;
+
+    letter-spacing: -0.4px;
+}
+
+
+/* Decorative line */
+
+.task-list h2::before {
+    content: "";
+
+    width: 5px;
+    height: 23px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #633cff,
+            #8b5cf6
+        );
 }
 
 
 .task-list ul {
-    list-style: none;
-
     display: flex;
 
     flex-direction: column;
 
     gap: 12px;
+
+    list-style: none;
 }
 
 
-/* ================================
+/* =========================================================
    TASK ITEM
-================================ */
+========================================================= */
 
 .task-item {
-    display: flex;
+    position: relative;
 
-    justify-content: space-between;
+    display: flex;
 
     align-items: center;
 
+    justify-content: space-between;
+
     gap: 15px;
 
-    padding: 17px 18px;
+    min-height: 70px;
 
-    background: #ffffff;
+    padding: 14px 16px 14px 20px;
 
-    border: 1px solid #e2e8f0;
+    background: rgba(255, 255, 255, 0.95);
+
+    border: 1px solid #e5e7ef;
 
     border-radius: 14px;
 
     box-shadow:
-        0 4px 10px rgba(15, 23, 42, 0.04);
+        0 5px 12px rgba(15, 23, 42, 0.05);
 
     transition:
         transform 0.25s ease,
@@ -263,147 +376,406 @@ body {
 }
 
 
-.task-item:hover {
-    transform: translateY(-3px);
+/* Left accent */
 
-    border-color: #c7d2fe;
+.task-item::before {
+    content: "";
 
-    box-shadow:
-        0 10px 25px rgba(15, 23, 42, 0.08);
+    position: absolute;
+
+    left: 0;
+    top: 14px;
+    bottom: 14px;
+
+    width: 4px;
+
+    border-radius: 0 6px 6px 0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #633cff,
+            #8b5cf6
+        );
+
+    opacity: 0;
+
+    transition: opacity 0.25s ease;
 }
 
 
-/* ================================
+.task-item:hover {
+    transform: translateY(-2px);
+
+    border-color: #d8d2ff;
+
+    box-shadow:
+        0 12px 25px rgba(15, 23, 42, 0.08);
+}
+
+
+.task-item:hover::before {
+    opacity: 1;
+}
+
+
+/* =========================================================
    TASK TEXT
-================================ */
+========================================================= */
 
 .task-item span {
+    flex: 1;
+
+    min-width: 0;
+
+    color: #1e293b;
+
     font-size: 15px;
 
-    font-weight: 500;
-
-    color: #334155;
+    font-weight: 600;
 
     line-height: 1.5;
 
     word-break: break-word;
 }
 
+/* =========================================================
+   CUSTOM CHECKBOX
+========================================================= */
 
-/* ================================
+.task-checkbox {
+    position: relative;
+
+    flex-shrink: 0;
+
+    width: 26px;
+    height: 26px;
+
+    cursor: pointer;
+}
+
+
+/* Checkbox asli disembunyikan */
+
+.task-checkbox input {
+    position: absolute;
+
+    opacity: 0;
+
+    width: 0;
+    height: 0;
+}
+
+
+/* Tampilan checkbox */
+
+.task-checkbox .checkmark {
+    position: absolute;
+
+    inset: 0;
+
+    width: 26px;
+    height: 26px;
+
+    border: 2px solid #cbd5e1;
+
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+/* Hover checkbox */
+
+.task-checkbox:hover .checkmark {
+    border-color: #8b5cf6;
+
+    box-shadow:
+        0 0 0 4px rgba(139, 92, 246, 0.08);
+
+    transform: scale(1.05);
+}
+
+
+/* Checkbox ketika dicentang */
+
+.task-checkbox input:checked + .checkmark {
+    border-color: #6366f1;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #8b5cf6
+        );
+
+    box-shadow:
+        0 5px 12px rgba(99, 102, 241, 0.25);
+
+    transform: scale(1.05);
+}
+
+
+/* Tanda check */
+
+.task-checkbox input:checked + .checkmark::after {
+    content: "";
+
+    position: absolute;
+
+    left: 8px;
+    top: 4px;
+
+    width: 6px;
+    height: 11px;
+
+    border: solid white;
+
+    border-width: 0 2px 2px 0;
+
+    transform: rotate(45deg);
+
+    animation: checkAnimation 0.2s ease;
+}
+/* =========================================================
    TASK BUTTON
-================================ */
+========================================================= */
 
 .task-item button {
     flex-shrink: 0;
 
-    padding: 8px 14px;
+    width: 52px;
+    height: 44px;
 
-    border: none;
+    border: 1px solid #f3caca;
 
-    border-radius: 8px;
+    border-radius: 10px;
 
-    background: #f1f5f9;
+    background: #fff8f8;
 
-    color: #475569;
+    color: #ef4444;
+
+    font-family: inherit;
 
     font-size: 13px;
+
     font-weight: 600;
 
     cursor: pointer;
 
     transition:
         background-color 0.2s ease,
+        border-color 0.2s ease,
         color 0.2s ease,
-        transform 0.2s ease;
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 
 .task-item button:hover {
     background: #fee2e2;
 
+    border-color: #fca5a5;
+
     color: #dc2626;
 
-    transform: scale(1.05);
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(239, 68, 68, 0.12);
 }
 
 
 .task-item button:active {
-    transform: scale(0.97);
+    transform: scale(0.96);
 }
 
 
-/* ================================
+/* =========================================================
    TASK SUMMARY
-================================ */
+========================================================= */
 
 .task-summary {
+    position: relative;
+
     display: flex;
 
-    justify-content: space-between;
+    flex-direction: column;
 
     align-items: center;
 
-    margin-top: 25px;
+    justify-content: center;
 
-    padding: 20px;
+    text-align: center;
 
-    border: 1px solid #e0e7ff;
+    min-height: 165px;
 
-    border-radius: 14px;
+    margin-top: 30px;
+
+    padding: 25px;
 
     background:
         linear-gradient(
             135deg,
-            #eef2ff,
-            #f5f3ff
+            #f2efff,
+            #f7f5ff,
+            #f1f4ff
         );
+
+    border: 1px solid #b9a8ff;
+
+    border-radius: 16px;
 
     color: #4338ca;
 
-    font-weight: 600;
+    overflow: hidden;
 
     box-shadow:
-        0 6px 15px rgba(79, 70, 229, 0.06);
+        0 10px 25px rgba(99, 60, 255, 0.08);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
+
+.task-summary:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 15px 30px rgba(99, 60, 255, 0.12);
+}
+
+
+/* =========================================================
+   SUMMARY DECORATIONS
+========================================================= */
+
+.task-summary::before {
+    content: "";
+
+    position: absolute;
+
+    width: 130px;
+    height: 130px;
+
+    left: -50px;
+    bottom: -60px;
+
+    border-radius: 50%;
+
+    background: rgba(139, 92, 246, 0.10);
+
+    pointer-events: none;
+}
+
+
+.task-summary::after {
+    content: "";
+
+    position: absolute;
+
+    width: 130px;
+    height: 130px;
+
+    right: -50px;
+    bottom: -60px;
+
+    border-radius: 50%;
+
+    background: rgba(99, 102, 241, 0.10);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   SUMMARY LABEL
+========================================================= */
+
+.task-summary span {
+    position: relative;
+
+    z-index: 2;
+
+    margin-bottom: 5px;
+
+    color: #64748b;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.2px;
+}
+
+
+/* =========================================================
+   SUMMARY NUMBER
+========================================================= */
 
 .task-summary strong {
-    font-size: 22px;
+    position: relative;
 
-    font-weight: 800;
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #5b3df5;
+
+    font-size: 42px;
+
+    font-weight: 850;
+
+    line-height: 1;
+
+    text-shadow:
+        0 4px 12px rgba(99, 60, 255, 0.12);
 }
 
 
-/* ================================
+/* =========================================================
    FOOTER
-================================ */
+========================================================= */
 
 footer {
-    margin-top: 35px;
+    margin-top: 38px;
 
-    padding-top: 20px;
+    padding-top: 22px;
 
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid #e5e7ef;
 
     text-align: center;
 
     color: #94a3b8;
 
     font-size: 13px;
+
+    line-height: 1.6;
 }
 
 
-/* ================================
+/* =========================================================
    ANIMATIONS
-================================ */
+========================================================= */
 
 @keyframes containerAppear {
+
     from {
         opacity: 0;
 
         transform:
-            translateY(20px)
+            translateY(25px)
             scale(0.98);
     }
 
@@ -417,56 +789,175 @@ footer {
 }
 
 
-/* ================================
-   RESPONSIVE
-================================ */
+@keyframes taskAppear {
 
-@media (max-width: 600px) {
+    from {
+        opacity: 0;
+
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE TABLET
+========================================================= */
+
+@media (max-width: 768px) {
 
     body {
-        padding: 20px 12px;
+        padding: 25px 15px;
     }
 
 
     .container {
-        padding: 25px 20px;
+        padding: 35px 25px;
 
-        border-radius: 18px;
+        border-radius: 22px;
     }
 
 
     .header h1 {
-        font-size: 30px;
+        font-size: 38px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 15px 10px;
     }
 
 
+    .container {
+        padding: 30px 18px;
+
+        border-radius: 20px;
+    }
+
+
+    .header {
+        margin-bottom: 30px;
+    }
+
+
+    .header h1 {
+        font-size: 32px;
+
+        letter-spacing: -1px;
+    }
+
+
+    .header p {
+        font-size: 14px;
+    }
+
+
+    /* Form menjadi vertikal */
+
     .task-form {
         flex-direction: column;
+
+        gap: 10px;
+
+        margin-bottom: 30px;
     }
 
 
     .task-form input {
         width: 100%;
+
+        height: 52px;
     }
 
 
     .task-form button {
         width: 100%;
 
-        padding: 14px;
+        height: 52px;
+    }
+
+
+    /* Task */
+
+    .task-item {
+        min-height: 65px;
+
+        padding: 12px 12px 12px 16px;
+    }
+
+
+    .task-item span {
+        font-size: 14px;
+    }
+
+
+    .task-item button {
+        width: 48px;
+
+        height: 40px;
+    }
+
+
+    /* Summary */
+
+    .task-summary {
+        min-height: 150px;
+
+        margin-top: 25px;
+    }
+
+
+    .task-summary strong {
+        font-size: 38px;
+    }
+
+
+    footer {
+        margin-top: 30px;
+
+        font-size: 12px;
+    }
+}
+
+
+/* =========================================================
+   EXTRA SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .container {
+        padding: 25px 15px;
+    }
+
+
+    .header h1 {
+        font-size: 28px;
     }
 
 
     .task-item {
-        align-items: flex-start;
+        gap: 8px;
     }
 
 
-    .task-summary {
-        flex-direction: column;
+    .task-item button {
+        width: 44px;
 
-        gap: 8px;
+        height: 38px;
 
-        text-align: center;
+        font-size: 12px;
     }
 }

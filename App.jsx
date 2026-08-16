@@ -9,72 +9,102 @@ function Header() {
     );
 }
 
-function TaskForm() {
-    const handleClick = () => {
-        alert ('Tombol Tambah berhasil Di Klik!');
-    };
+function TaskForm({task, setTask, addTask}) {
     return (
         <div className="task-form">
             <input
             type ="text"
-            placeholder="Masukkan Tugas Yang Baru"
+            placeholder="Masukkan Tugas Yang Baru" 
+            value={task}
+            onChange={(e) => setTask(e.target.value)}
             />
-            <button onClick={handleClick}>Tambah Tugas</button>
+            <button onClick={addTask}>Tambah Tugas</button>
         </div>
     );
 }
 
-function TaskList() {
+function TaskList({tasks, deleteTask}) {
     return (
         <div className="task-list">
             <h2>Daftar Tugas</h2>
-            <ul>
-                <li className="task-item">
-                    <span>Belajar React</span>
-                    <button onClick={() => alert('Tugas "Belajar React" telah dihapus!')}>
-                        Hapus
-                    </button>
-                </li>
-                <li className="task-item">
-                    <span>Belajar JavaScript</span>
-                    <button onClick={() => alert('Tugas "Belajar JavaScript" telah dihapus!')}>
-                        Hapus
-                    </button>
-                </li>
-                <li className="task-item">
-                    <span>Membuat Portfolio</span>
-                    <button onClick={() => alert('Tugas "Membuat Portfolio" telah dihapus!')}>
-                        Hapus
-                    </button>
-                </li>
-            </ul>
+            {tasks.length === 0 ? (
+                <p className="empty-task">Tidak ada tugas yang tersedia.</p>
+            ) : (
+                <ul>
+                    {tasks.map((task, index) => (
+                        <li  
+                        className="task-item" 
+                        key={index}>
+                            <div className="task-content">
+                                <input type="checkbox" />
+                                <span>{task}</span>
+                            </div>
+                            <button onClick={() => deleteTask(index)}>Hapus</button>
+                        </li>
+                    ))}
+                </ul>
+            )}
+          
         </div>
     );
 }
 
-function TaskSummary() {
+function TaskSummary({tasks}) {
     return (
         <div className="task-summary">
-            <h2>Ringkasan Tugas</h2>
-            <p>
-                Total Tugas: 3
+            <h2>
+            <p >
+                Total Tugas: <strong>{tasks.length}</strong>
             </p>
-            <p>
-                Tugas Selesai: 0
-            </p>
+            </h2>
+            {/* <p>
+                Tugas Selesai: <strong>{tasks.filter(task => task.completed).length}</strong>
+            </p> */}
         </div>
     );
 }
 function App() {
+    //State untuk menyimpan Input daftar tugas
+    const [task, setTask] = React.useState('');
+    //State untuk menyimpan semua tugas
+    const [tasks, setTasks] = React.useState([]);
+
+    //Fungsi untuk menambahkan tugas baru ke daftar tugas
+    const addTask = () => {
+        if (task.trim() === '') {
+            alert("Task Tidak Boleh Kosong!");
+            return;
+        }
+        // Menambahkan tugas baru ke daftar tugas
+        setTasks([...tasks, task ]);
+        // Mengosongkan input setelah menambahkan tugas
+        setTask('');
+    };
+    const deleteTask = (index) => {
+        const updatedTasks = tasks.filter((_, taskIndex) => taskIndex !== index
+    );
+    
+        setTasks(updatedTasks);
+};
     return (
         <div className="container">
         <Header />
+
         <main>
-            <TaskForm />
+            <TaskForm
+            task={task}
+            setTask={setTask}
+            addTask={addTask}
+            />
 
-            <TaskList />
+            <TaskList 
+            tasks={tasks}
+            deleteTask={deleteTask}
+            />
 
-            <TaskSummary />
+            <TaskSummary
+             tasks={tasks}
+            />
 
         </main>
         
