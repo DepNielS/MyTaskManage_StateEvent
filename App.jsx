@@ -1,10 +1,11 @@
+
+
 function Header() {
     return (
         <header>
             <h1>My Task Manager 🦑</h1>
-            <p>
-                Mengelola tugas-tugasmu dengan mudah dan efisien. 
-            </p>
+
+            <p>Mengelola tugas-tugasmu dengan mudah dan efisien.</p>
         </header>
     );
 }
@@ -23,23 +24,32 @@ function TaskForm({task, setTask, addTask}) {
     );
 }
 
-function TaskList({tasks, deleteTask}) {
+function TaskList({tasks, deleteTask, toogleTask}) {
+
     return (
         <div className="task-list">
+
             <h2>Daftar Tugas</h2>
+
             {tasks.length === 0 ? (
                 <p className="empty-task">Tidak ada tugas yang tersedia.</p>
             ) : (
                 <ul>
-                    {tasks.map((task, index) => (
-                        <li  
-                        className="task-item" 
-                        key={index}>
+                    {tasks.map((task)  => (
+                        <li className={`task-item ${task.completed ? "completed" : "" }`} key={task.id}>
+
                             <div className="task-content">
-                                <input type="checkbox" />
-                                <span>{task}</span>
+
+                                <input 
+                                type="checkbox"
+                                checked={task.completed}
+                                onChange={() => toogleTask(task.id)}
+                                />
+                                <span>{task.title}</span>
                             </div>
-                            <button onClick={() => deleteTask(index)}>Hapus</button>
+
+                                <button onClick={() => deleteTask(task.id)}>Hapus</button>
+
                         </li>
                     ))}
                 </ul>
@@ -50,42 +60,60 @@ function TaskList({tasks, deleteTask}) {
 }
 
 function TaskSummary({tasks}) {
+    const completedTasks = tasks.filter((task) => task.completed);
+
     return (
         <div className="task-summary">
-            <h2>
-            <p >
-                Total Tugas: <strong>{tasks.length}</strong>
-            </p>
+            <h2> 
+                <p> Total Tugas: <strong>{tasks.length}</strong> </p> 
+                <p> Tugas Selesai: <strong>{completedTasks.length}</strong> </p>
             </h2>
-            {/* <p>
-                Tugas Selesai: <strong>{tasks.filter(task => task.completed).length}</strong>
-            </p> */}
         </div>
+
     );
 }
 function App() {
     //State untuk menyimpan Input daftar tugas
-    const [task, setTask] = React.useState('');
+    const [task, setTask] = React.useState("");
+
     //State untuk menyimpan semua tugas
     const [tasks, setTasks] = React.useState([]);
 
     //Fungsi untuk menambahkan tugas baru ke daftar tugas
     const addTask = () => {
-        if (task.trim() === '') {
+        if (task.trim() === "") {
             alert("Task Tidak Boleh Kosong!");
             return;
         }
+        const newTask = {
+            id: Date.now(),
+            title: task,
+            completed: false,
+        };
+
         // Menambahkan tugas baru ke daftar tugas
-        setTasks([...tasks, task ]);
+        setTasks([...tasks, newTask ]);
         // Mengosongkan input setelah menambahkan tugas
-        setTask('');
+        setTask("");
     };
-    const deleteTask = (index) => {
-        const updatedTasks = tasks.filter((_, taskIndex) => taskIndex !== index
-    );
-    
+
+    //Menghapus tugas dari daftar tugas berdasarkan index
+    const deleteTask = (id) => {
+        const updatedTasks = tasks.filter((task) => task.id !== id);
         setTasks(updatedTasks);
-};
+    };
+    
+    //Mengubah status tugas menjadi selesai atau belum selesai
+    const toogleTask = (id) => { 
+        const updatedTasks = tasks.map((task) => {
+            if (task.id === id) {
+                return {...task, completed: !task.completed};
+            }
+            return task; 
+        });
+        setTasks(updatedTasks);
+    };
+
     return (
         <div className="container">
         <Header />
@@ -100,6 +128,7 @@ function App() {
             <TaskList 
             tasks={tasks}
             deleteTask={deleteTask}
+            toogleTask={toogleTask}
             />
 
             <TaskSummary
