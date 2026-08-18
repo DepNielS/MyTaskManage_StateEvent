@@ -10,7 +10,8 @@ function Header() {
 }
 
 // Komponen untuk menambahkan tugas baru
-function TaskForm({task, setTask, addTask}) {
+function TaskForm({task, setTask, addTask, updateTask, editingId}) {
+    
     return (
         <div className="task-form">
             <input
@@ -19,13 +20,17 @@ function TaskForm({task, setTask, addTask}) {
             value={task}
             onChange={(e) => setTask(e.target.value)}
             />
-            <button onClick={addTask}>Tambah Tugas</button>
+            <button onClick={editingId === null ? addTask : updateTask}>
+                {
+                editingId === null ? "Tambah Tugas" : "Simpan Tugas"
+                }
+            </button>
         </div>
     );
 }
 
 // Komponen untuk menampilkan daftar tugas
-function TaskList({tasks, deleteTask, toogleTask}) {
+function TaskList({tasks, deleteTask, toogleTask, startEdit}) {
 
     return (
         <div className="task-list">
@@ -48,8 +53,14 @@ function TaskList({tasks, deleteTask, toogleTask}) {
                                 />
                                 <span>{task.title}</span>
                             </div>
+                            
+                            <div className="task-actions">
+                                <button className="edit-button" onClick={() => startEdit(task)}>Edit</button>
 
-                                <button onClick={() => deleteTask(task.id)}>Hapus</button>
+                                <button className="delete-button" onClick={() => deleteTask(task.id)}>Hapus</button>
+                            </div>
+
+                                
 
                         </li>
                     ))}
@@ -106,6 +117,7 @@ function TaskFilter({filter, setFilter, totalTasks, activeTasks, completedTasks}
     );
 }
 
+
 function App() {
     //State untuk menyimpan Input daftar tugas
     const [task, setTask] = React.useState("");
@@ -121,6 +133,8 @@ function App() {
     
     //Mengambil daftar tugas yang sudah selesai
     const completedTasks = tasks.filter((task) => task.completed);
+
+    const [editingId, setEditingId] = React.useState(null);
 
     //Fungsi untuk menambahkan tugas baru ke daftar tugas
     const addTask = () => {
@@ -168,6 +182,29 @@ function App() {
         return true;
     });
 
+    const startEdit = (task) => {
+        // Set the task to be edited and its ID
+        setEditingId(task.id);
+        // Set the task title in the input field for editing
+        setTask(task.title);
+    };
+
+    const updateTask = () => {
+        if (task.trim() === "") {
+            alert("Task Tidak Boleh Kosong!");
+            return;
+        }
+    const updatedTasks = tasks.map((item) => {
+        if (item.id === editingId) {
+            return {...item, title: task};
+        }
+        return item;
+    });
+    setTasks(updatedTasks);
+    setEditingId(null);
+    setTask("");
+};
+
     // Render komponen utama aplikasi
     return (
         <div className="container">
@@ -179,6 +216,8 @@ function App() {
             task={task}
             setTask={setTask}
             addTask={addTask}
+            updateTask={updateTask}
+            editingId={editingId}
             />
 
             {/* Render daftar tugas yang telah difilter */}
@@ -186,6 +225,7 @@ function App() {
             tasks={filteredTasks}
             deleteTask={deleteTask}
             toogleTask={toogleTask}
+            startEdit={startEdit}
             />
 
             {/* Render komponen filter tugas dan ringkasan tugas */}

@@ -13,15 +13,15 @@ html {
 }
 
 body {
+    min-height: 100vh;
+
+    padding: 40px 20px;
+
     font-family:
         Inter,
         Arial,
         Helvetica,
         sans-serif;
-
-    min-height: 100vh;
-
-    padding: 40px 20px;
 
     color: #172033;
 
@@ -56,7 +56,6 @@ body {
     max-width: 950px;
 
     margin: 0 auto;
-
     padding: 45px;
 
     background: rgba(255, 255, 255, 0.86);
@@ -78,7 +77,7 @@ body {
 }
 
 
-/* Decorative background */
+/* Decorative Circle */
 
 .container::before {
     content: "";
@@ -108,22 +107,20 @@ body {
 .header {
     position: relative;
 
-    text-align: center;
-
     margin-bottom: 40px;
-}
 
+    text-align: center;
+}
 
 .header h1 {
     margin-bottom: 12px;
 
     font-size: 44px;
-
     font-weight: 800;
 
-    letter-spacing: -1.5px;
-
     line-height: 1.1;
+
+    letter-spacing: -1.5px;
 
     background:
         linear-gradient(
@@ -138,7 +135,6 @@ body {
 
     -webkit-text-fill-color: transparent;
 }
-
 
 .header p {
     color: #64748b;
@@ -160,13 +156,11 @@ body {
 
     gap: 14px;
 
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 
-/* =========================================================
-   INPUT
-========================================================= */
+/* Input */
 
 .task-form input {
     flex: 1;
@@ -199,16 +193,13 @@ body {
         transform 0.25s ease;
 }
 
-
 .task-form input::placeholder {
     color: #94a3b8;
 }
 
-
 .task-form input:hover {
     border-color: #c4b5fd;
 }
-
 
 .task-form input:focus {
     outline: none;
@@ -223,13 +214,9 @@ body {
 }
 
 
-/* =========================================================
-   ADD BUTTON
-========================================================= */
+/* Add Button */
 
 .task-form button {
-    position: relative;
-
     height: 58px;
 
     padding: 0 28px;
@@ -250,7 +237,6 @@ body {
     font-family: inherit;
 
     font-size: 15px;
-
     font-weight: 700;
 
     cursor: pointer;
@@ -264,7 +250,6 @@ body {
         filter 0.25s ease;
 }
 
-
 .task-form button:hover {
     transform: translateY(-2px);
 
@@ -274,71 +259,14 @@ body {
         0 15px 28px rgba(99, 60, 255, 0.32);
 }
 
-
 .task-form button:active {
     transform: translateY(0);
-
-    box-shadow:
-        0 7px 15px rgba(99, 60, 255, 0.22);
 }
 
 
 /* =========================================================
-   TASK LIST
+   TASK FILTER
 ========================================================= */
-
-.task-list {
-    position: relative;
-}
-
-
-.task-list h2 {
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-    margin-bottom: 20px;
-
-    color: #172033;
-
-    font-size: 22px;
-
-    font-weight: 750;
-
-    letter-spacing: -0.4px;
-}
-
-
-/* Decorative line */
-
-.task-list h2::before {
-    content: "";
-
-    width: 5px;
-    height: 23px;
-
-    border-radius: 10px;
-
-    background:
-        linear-gradient(
-            to bottom,
-            #633cff,
-            #8b5cf6
-        );
-}
-
-
-.task-list ul {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 12px;
-
-    list-style: none;
-}
 
 .task-filter {
     display: flex;
@@ -349,7 +277,7 @@ body {
 
     width: fit-content;
 
-    margin: 0 auto 25px;
+    margin: 0 auto 30px;
 
     padding: 6px;
 
@@ -370,9 +298,7 @@ body {
 }
 
 
-/* =========================================================
-   FILTER BUTTON
-========================================================= */
+/* Filter Button */
 
 .task-filter button {
     position: relative;
@@ -395,8 +321,6 @@ body {
 
     font-weight: 700;
 
-    letter-spacing: 0.1px;
-
     cursor: pointer;
 
     white-space: nowrap;
@@ -409,9 +333,7 @@ body {
 }
 
 
-/* =========================================================
-   HOVER
-========================================================= */
+/* Filter Hover */
 
 .task-filter button:hover {
     color: #4f46e5;
@@ -422,9 +344,7 @@ body {
 }
 
 
-/* =========================================================
-   ACTIVE BUTTON
-========================================================= */
+/* Active Filter */
 
 .task-filter button.active {
     color: #ffffff;
@@ -443,28 +363,7 @@ body {
 }
 
 
-/* =========================================================
-   ACTIVE HOVER
-========================================================= */
-
-.task-filter button.active:hover {
-    color: #ffffff;
-
-    background:
-        linear-gradient(
-            135deg,
-            #5b5ff0,
-            #7134dc
-        );
-
-    box-shadow:
-        0 9px 20px rgba(99, 102, 241, 0.30);
-}
-
-
-/* =========================================================
-   ACTIVE DECORATION
-========================================================= */
+/* Active Decoration */
 
 .task-filter button.active::after {
     content: "";
@@ -472,11 +371,9 @@ body {
     position: absolute;
 
     left: 50%;
-
     bottom: 3px;
 
     width: 18px;
-
     height: 3px;
 
     border-radius: 10px;
@@ -488,71 +385,88 @@ body {
 
 
 /* =========================================================
-   CLICK EFFECT
+   TASK LIST
 ========================================================= */
 
-.task-filter button:active {
-    transform: scale(0.96);
+.task-list {
+    position: relative;
+}
+
+.task-list h2 {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 20px;
+
+    color: #172033;
+
+    font-size: 22px;
+
+    font-weight: 750;
+
+    letter-spacing: -0.4px;
 }
 
 
-/* =========================================================
-   FOCUS
-========================================================= */
+/* Decorative Line */
 
-.task-filter button:focus-visible {
-    outline: none;
+.task-list h2::before {
+    content: "";
+
+    width: 5px;
+    height: 24px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #633cff,
+            #8b5cf6,
+            #ec4899
+        );
 
     box-shadow:
-        0 0 0 3px rgba(99, 102, 241, 0.20);
+        0 3px 10px rgba(99, 102, 241, 0.25);
+}
+
+
+/* Task List */
+
+.task-list ul {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+    list-style: none;
 }
 
 
 /* =========================================================
-   MOBILE
+   EMPTY TASK
 ========================================================= */
 
-@media (max-width: 600px) {
+.empty-task {
+    padding: 35px 20px;
 
-    .task-filter {
-        display: grid;
+    border: 1px dashed #cbd5e1;
 
-        grid-template-columns: repeat(3, 1fr);
+    border-radius: 15px;
 
-        width: 100%;
+    background: rgba(248, 250, 252, 0.7);
 
-        gap: 5px;
+    color: #94a3b8;
 
-        margin-bottom: 22px;
+    text-align: center;
 
-        padding: 5px;
-    }
-
-
-    .task-filter button {
-        min-width: 0;
-
-        width: 100%;
-
-        padding: 10px 6px;
-
-        font-size: 12px;
-    }
+    font-size: 14px;
 }
 
-
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
-
-@media (max-width: 400px) {
-
-    .task-filter button {
-        padding: 9px 4px;
-
-        font-size: 11px;
-    }
-}
 
 /* =========================================================
    TASK ITEM
@@ -571,16 +485,23 @@ body {
 
     min-height: 70px;
 
-    padding: 14px 16px 14px 20px;
+    padding: 13px 14px 13px 18px;
 
-    background: rgba(255, 255, 255, 0.95);
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #fafaff
+        );
 
-    border: 1px solid #e5e7ef;
+    border: 1px solid #e5e7eb;
 
-    border-radius: 14px;
+    border-radius: 15px;
 
     box-shadow:
-        0 5px 12px rgba(15, 23, 42, 0.05);
+        0 5px 15px rgba(15, 23, 42, 0.05);
+
+    overflow: hidden;
 
     transition:
         transform 0.25s ease,
@@ -589,26 +510,27 @@ body {
 }
 
 
-/* Left accent */
+/* Left Accent */
 
 .task-item::before {
     content: "";
 
     position: absolute;
 
+    top: 15px;
+    bottom: 15px;
     left: 0;
-    top: 14px;
-    bottom: 14px;
 
     width: 4px;
 
-    border-radius: 0 6px 6px 0;
+    border-radius: 0 8px 8px 0;
 
     background:
         linear-gradient(
             to bottom,
-            #633cff,
-            #8b5cf6
+            #6366f1,
+            #8b5cf6,
+            #ec4899
         );
 
     opacity: 0;
@@ -617,15 +539,16 @@ body {
 }
 
 
-.task-item:hover {
-    transform: translateY(-2px);
+/* Hover */
 
-    border-color: #d8d2ff;
+.task-item:hover {
+    transform: translateY(-3px);
+
+    border-color: #c7d2fe;
 
     box-shadow:
-        0 12px 25px rgba(15, 23, 42, 0.08);
+        0 12px 28px rgba(79, 70, 229, 0.10);
 }
-
 
 .task-item:hover::before {
     opacity: 1;
@@ -633,92 +556,70 @@ body {
 
 
 /* =========================================================
-   TASK TEXT
+   TASK CONTENT
 ========================================================= */
 
-.task-item span {
+.task-content {
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
     flex: 1;
 
     min-width: 0;
-
-    color: #1e293b;
-
-    font-size: 15px;
-
-    font-weight: 600;
-
-    line-height: 1.5;
-
-    word-break: break-word;
 }
 
+
 /* =========================================================
-   CUSTOM CHECKBOX
+   CHECKBOX
 ========================================================= */
 
-.task-checkbox {
+.task-content input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+
     position: relative;
 
     flex-shrink: 0;
 
-    width: 26px;
-    height: 26px;
+    width: 25px;
+    height: 25px;
 
-    cursor: pointer;
-}
-
-
-/* Checkbox asli disembunyikan */
-
-.task-checkbox input {
-    position: absolute;
-
-    opacity: 0;
-
-    width: 0;
-    height: 0;
-}
-
-
-/* Tampilan checkbox */
-
-.task-checkbox .checkmark {
-    position: absolute;
-
-    inset: 0;
-
-    width: 26px;
-    height: 26px;
+    margin: 0;
 
     border: 2px solid #cbd5e1;
 
-    border-radius: 9px;
+    border-radius: 8px;
 
     background: #ffffff;
+
+    cursor: pointer;
 
     transition:
         background 0.25s ease,
         border-color 0.25s ease,
-        transform 0.25s ease,
+        transform 0.2s ease,
         box-shadow 0.25s ease;
 }
 
 
-/* Hover checkbox */
+/* Checkbox Hover */
 
-.task-checkbox:hover .checkmark {
+.task-content input[type="checkbox"]:hover {
     border-color: #8b5cf6;
+
+    transform: scale(1.05);
 
     box-shadow:
         0 0 0 4px rgba(139, 92, 246, 0.08);
-
-    transform: scale(1.05);
 }
 
 
-/* Checkbox ketika dicentang */
+/* Checkbox Checked */
 
-.task-checkbox input:checked + .checkmark {
+.task-content input[type="checkbox"]:checked {
     border-color: #6366f1;
 
     background:
@@ -735,20 +636,20 @@ body {
 }
 
 
-/* Tanda check */
+/* Check Icon */
 
-.task-checkbox input:checked + .checkmark::after {
+.task-content input[type="checkbox"]:checked::after {
     content: "";
 
     position: absolute;
 
-    left: 8px;
-    top: 4px;
+    left: 7px;
+    top: 3px;
 
     width: 6px;
     height: 11px;
 
-    border: solid white;
+    border: solid #ffffff;
 
     border-width: 0 2px 2px 0;
 
@@ -756,57 +657,174 @@ body {
 
     animation: checkAnimation 0.2s ease;
 }
+
+
 /* =========================================================
-   TASK BUTTON
+   TASK TEXT
 ========================================================= */
 
-.task-item button {
+.task-content span {
+    min-width: 0;
+
+    color: #1e293b;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    line-height: 1.5;
+
+    word-break: break-word;
+
+    transition:
+        color 0.25s ease,
+        opacity 0.25s ease,
+        text-decoration 0.25s ease;
+}
+
+
+/* Completed Text */
+
+.task-item.completed .task-content span {
+    color: #94a3b8;
+
+    text-decoration: line-through;
+
+    text-decoration-thickness: 2px;
+
+    opacity: 0.7;
+}
+
+
+/* Completed Task */
+
+.task-item.completed {
+    background:
+        linear-gradient(
+            135deg,
+            #fafafa,
+            #f8f8fc
+        );
+
+    border-color: #e2e8f0;
+}
+
+
+/* =========================================================
+   TASK ACTIONS
+========================================================= */
+
+.task-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
     flex-shrink: 0;
+}
 
-    width: 52px;
-    height: 44px;
 
-    border: 1px solid #f3caca;
+/* Base Button */
 
-    border-radius: 10px;
+.task-actions button {
+    display: flex;
 
-    background: #fff8f8;
+    align-items: center;
 
-    color: #ef4444;
+    justify-content: center;
+
+    min-width: 70px;
+
+    height: 40px;
+
+    padding: 0 14px;
+
+    border-radius: 9px;
 
     font-family: inherit;
 
     font-size: 13px;
 
-    font-weight: 600;
+    font-weight: 700;
 
     cursor: pointer;
 
     transition:
-        background-color 0.2s ease,
-        border-color 0.2s ease,
-        color 0.2s ease,
         transform 0.2s ease,
-        box-shadow 0.2s ease;
+        background 0.25s ease,
+        border-color 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 
-.task-item button:hover {
-    background: #fee2e2;
+/* =========================================================
+   EDIT BUTTON
+========================================================= */
 
-    border-color: #fca5a5;
+.task-actions .edit-button {
+    border: 1px solid #c7d2fe;
+    background: #eef2ff;
+    color: #4f46e5;
+}
 
-    color: #dc2626;
 
-    transform: translateY(-1px);
+/* Edit Hover */
+
+.task-actions .edit-button:hover {
+   background: #4f46e5;
+    border-color: #4f46e5;
+    color: white;
+
+    transform: translateY(-2px);
 
     box-shadow:
-        0 5px 12px rgba(239, 68, 68, 0.12);
+        0 7px 16px rgba(79, 70, 229, 0.25);
 }
 
 
-.task-item button:active {
-    transform: scale(0.96);
+/* =========================================================
+   DELETE BUTTON
+========================================================= */
+
+.task-actions .delete-button {
+    background: #ef4444;
+    border-color: #ef4444;
+    color: white;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 16px rgba(239, 68, 68, 0.25);
+}
+
+
+/* Delete Hover */
+
+.task-actions .delete-button:hover {
+    border-color: #ef4444;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ef4444,
+            #dc2626
+        );
+
+    color: #ffffff;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 16px rgba(239, 68, 68, 0.22);
+}
+
+
+/* Button Click */
+
+.task-actions button:active {
+    transform: scale(0.95);
 }
 
 
@@ -825,13 +843,13 @@ body {
 
     justify-content: center;
 
-    text-align: center;
-
     min-height: 165px;
 
     margin-top: 30px;
 
     padding: 25px;
+
+    text-align: center;
 
     background:
         linear-gradient(
@@ -858,6 +876,8 @@ body {
 }
 
 
+/* Summary Hover */
+
 .task-summary:hover {
     transform: translateY(-2px);
 
@@ -866,9 +886,7 @@ body {
 }
 
 
-/* =========================================================
-   SUMMARY DECORATIONS
-========================================================= */
+/* Summary Decoration */
 
 .task-summary::before {
     content: "";
@@ -884,10 +902,7 @@ body {
     border-radius: 50%;
 
     background: rgba(139, 92, 246, 0.10);
-
-    pointer-events: none;
 }
-
 
 .task-summary::after {
     content: "";
@@ -903,14 +918,10 @@ body {
     border-radius: 50%;
 
     background: rgba(99, 102, 241, 0.10);
-
-    pointer-events: none;
 }
 
 
-/* =========================================================
-   SUMMARY LABEL
-========================================================= */
+/* Summary Label */
 
 .task-summary span {
     position: relative;
@@ -924,25 +935,15 @@ body {
     font-size: 15px;
 
     font-weight: 700;
-
-    letter-spacing: 0.2px;
 }
 
 
-/* =========================================================
-   SUMMARY NUMBER
-========================================================= */
+/* Summary Number */
 
 .task-summary strong {
     position: relative;
 
     z-index: 2;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
 
     color: #5b3df5;
 
@@ -968,13 +969,13 @@ footer {
 
     border-top: 1px solid #e5e7ef;
 
-    text-align: center;
-
     color: #94a3b8;
 
     font-size: 13px;
 
     line-height: 1.6;
+
+    text-align: center;
 }
 
 
@@ -1002,24 +1003,28 @@ footer {
 }
 
 
-@keyframes taskAppear {
+@keyframes checkAnimation {
 
     from {
         opacity: 0;
 
-        transform: translateY(8px);
+        transform:
+            rotate(45deg)
+            scale(0.5);
     }
 
     to {
         opacity: 1;
 
-        transform: translateY(0);
+        transform:
+            rotate(45deg)
+            scale(1);
     }
 }
 
 
 /* =========================================================
-   RESPONSIVE TABLET
+   TABLET
 ========================================================= */
 
 @media (max-width: 768px) {
@@ -1028,13 +1033,11 @@ footer {
         padding: 25px 15px;
     }
 
-
     .container {
         padding: 35px 25px;
 
         border-radius: 22px;
     }
-
 
     .header h1 {
         font-size: 38px;
@@ -1043,7 +1046,7 @@ footer {
 
 
 /* =========================================================
-   RESPONSIVE MOBILE
+   MOBILE
 ========================================================= */
 
 @media (max-width: 600px) {
@@ -1052,7 +1055,6 @@ footer {
         padding: 15px 10px;
     }
 
-
     .container {
         padding: 30px 18px;
 
@@ -1060,41 +1062,32 @@ footer {
     }
 
 
+    /* Header */
+
     .header {
         margin-bottom: 30px;
     }
 
-
     .header h1 {
         font-size: 32px;
-
-        letter-spacing: -1px;
     }
-
 
     .header p {
         font-size: 14px;
     }
 
 
-    /* Form menjadi vertikal */
+    /* Form */
 
     .task-form {
         flex-direction: column;
 
         gap: 10px;
 
-        margin-bottom: 30px;
+        margin-bottom: 25px;
     }
 
-
-    .task-form input {
-        width: 100%;
-
-        height: 52px;
-    }
-
-
+    .task-form input,
     .task-form button {
         width: 100%;
 
@@ -1102,24 +1095,73 @@ footer {
     }
 
 
-    /* Task */
+    /* Filter */
 
-    .task-item {
-        min-height: 65px;
+    .task-filter {
+        display: grid;
 
-        padding: 12px 12px 12px 16px;
+        grid-template-columns: repeat(3, 1fr);
+
+        width: 100%;
+
+        gap: 5px;
+
+        margin-bottom: 25px;
+
+        padding: 5px;
+    }
+
+    .task-filter button {
+        min-width: 0;
+
+        width: 100%;
+
+        padding: 10px 5px;
+
+        font-size: 12px;
     }
 
 
-    .task-item span {
+    /* Task */
+
+    .task-item {
+        align-items: center;
+
+        gap: 10px;
+
+        min-height: 64px;
+
+        padding: 11px 10px 11px 14px;
+    }
+
+    .task-content {
+        gap: 10px;
+    }
+
+    .task-content input[type="checkbox"] {
+        width: 23px;
+        height: 23px;
+    }
+
+    .task-content span {
         font-size: 14px;
     }
 
 
-    .task-item button {
-        width: 48px;
+    /* Actions */
 
-        height: 40px;
+    .task-actions {
+        gap: 5px;
+    }
+
+    .task-actions button {
+        min-width: 58px;
+
+        height: 36px;
+
+        padding: 0 9px;
+
+        font-size: 12px;
     }
 
 
@@ -1131,11 +1173,12 @@ footer {
         margin-top: 25px;
     }
 
-
     .task-summary strong {
         font-size: 38px;
     }
 
+
+    /* Footer */
 
     footer {
         margin-top: 30px;
@@ -1155,22 +1198,21 @@ footer {
         padding: 25px 15px;
     }
 
-
     .header h1 {
         font-size: 28px;
     }
 
-
     .task-item {
-        gap: 8px;
+        gap: 7px;
     }
 
+    .task-actions button {
+        min-width: 52px;
 
-    .task-item button {
-        width: 44px;
+        height: 34px;
 
-        height: 38px;
+        padding: 0 7px;
 
-        font-size: 12px;
+        font-size: 11px;
     }
 }
