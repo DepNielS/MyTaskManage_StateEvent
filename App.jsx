@@ -287,12 +287,12 @@ function App() {
             />
             
            
-            {/* {
-            completeTasks.length > 0 && (
+            {
+            completedTasks.length > 0 && (
                 <button className="clear-completed" onClick={clearCompletedTasks}>
                     Hapus Semua Tugas Selesai
                 </button>
-            )} */}
+            )}
             
 
             {/* Render ringkasan tugas */}
