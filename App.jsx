@@ -29,6 +29,15 @@ function TaskForm({task, setTask, addTask, updateTask, editingId}) {
     );
 }
 
+// Komponen untuk mencari tugas berdasarkan kata kunci
+function TaskSearch({search, setSearch}) {
+    return (
+        <div className="task-search">
+            <input type="text" placeholder="Cari Tugas..." value={search} onChange={(e) => setSearch(e.target.value)} />
+        </div>
+    );
+}
+
 // Komponen untuk menampilkan daftar tugas
 function TaskList({tasks, deleteTask, toogleTask, startEdit}) {
 
@@ -71,20 +80,6 @@ function TaskList({tasks, deleteTask, toogleTask, startEdit}) {
     );
 }
 
-// Komponen untuk menampilkan ringkasan tugas (total tugas dan tugas selesai)
-function TaskSummary({totalTasks, completedTasks}) {
-
-    return (
-        <div className="task-summary">
-            <h2> 
-                <p> Total Tugas: <strong>{""}{totalTasks}</strong> </p> 
-                <p> Tugas Selesai: <strong>{""}{completedTasks}</strong> </p>
-            </h2>
-        </div>
-
-    );
-}
-
 // Komponen untuk memfilter tugas berdasarkan status (semua, aktif, selesai)
 function TaskFilter({filter, setFilter, totalTasks, activeTasks, completedTasks}) {
     return (
@@ -117,14 +112,43 @@ function TaskFilter({filter, setFilter, totalTasks, activeTasks, completedTasks}
     );
 }
 
+// Komponen untuk menampilkan ringkasan tugas (total tugas dan tugas selesai)
+function TaskSummary({totalTasks, completedTasks}) {
+
+    return (
+        <div className="task-summary">
+            <h2> 
+                <p> Total Tugas: <strong>{""}{totalTasks}</strong> </p> 
+                <p> Tugas Selesai: <strong>{""}{completedTasks}</strong> </p>
+            </h2>
+        </div>
+
+    );
+}
+
+
 
 function App() {
     //State untuk menyimpan Input daftar tugas
     const [task, setTask] = React.useState("");
 
     //State untuk menyimpan semua tugas
-    const [tasks, setTasks] = React.useState([]);
+    const [tasks, setTasks] = React.useState (() => {
+        const savedTasks = localStorage.getItem("tasks");
+        if (savedTasks) {
+            return JSON.parse(savedTasks);
+        }
+        return [];
+    });
+
+    //Menyimpan daftar tugas ke localStorage setiap kali ada perubahan pada daftar tugas
+    React.useEffect(() => {
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+    }, [tasks]);
     
+    //State untuk menyimpan kata kunci pencarian
+    const [search, setSearch] = React.useState("");
+
     //State untuk menyimpan filter tugas
     const [filter, setFilter] = React.useState("all");
 
@@ -173,14 +197,23 @@ function App() {
 
     // Filter tugas berdasarkan status (semua, aktif, selesai)
     const filteredTasks = tasks.filter((task) => {
-        if (filter === "active") {
-            return !task.completed;
+        if (filter === "active" && task.completed) {
+            return false;
         }
-        if (filter === "completed") {
-            return task.completed;
+        if (filter === "completed" && !task.completed) {
+            return false;
         }
-        return true;
+
+    const searchedText = search.toLowerCase();
+    const taskTitle = task.title.toLowerCase();
+        if(!taskTitle.includes(searchedText)) {
+            return false;
+        }
+            return true;
     });
+
+    
+
 
     const startEdit = (task) => {
         // Set the task to be edited and its ID
@@ -205,9 +238,20 @@ function App() {
     setTask("");
 };
 
+    const clearCompletedTasks = () => {
+        const activeOnly =tasks.filter((task) => !task.completed);
+        setTasks(activeOnly);
+    };
+
+    const cancelEdit = () => {
+        setTask("");
+        setEditingId(null);
+    };
+
     // Render komponen utama aplikasi
     return (
         <div className="container">
+
         <Header />
 
         <main>
@@ -220,21 +264,36 @@ function App() {
             editingId={editingId}
             />
 
-            {/* Render daftar tugas yang telah difilter */}
+            <TaskSearch 
+            search={search}
+            setSearch={setSearch}
+            />
+
+             {/* Render komponen filter tugas dan ringkasan tugas */}
+            <TaskFilter
+            filter={filter}
+            setFilter={setFilter}
+            totalTasks={tasks.length}
+            completedTasks={completedTasks.length}
+            activeTasks={activeTasks.length}
+            />
+
+            {/* Render daftar tugas yang telah difilter berdasarkan status dan pencarian */}
             <TaskList 
             tasks={filteredTasks}
             deleteTask={deleteTask}
             toogleTask={toogleTask}
             startEdit={startEdit}
             />
-
-            {/* Render komponen filter tugas dan ringkasan tugas */}
-            <TaskFilter
-            filter={filter}
-            setFilter={setFilter}
-            totalTasks={tasks.length}
-            completedTasks={completedTasks.length}
-            activeTasks={activeTasks.length}/>
+            
+           
+            {/* {
+            completeTasks.length > 0 && (
+                <button className="clear-completed" onClick={clearCompletedTasks}>
+                    Hapus Semua Tugas Selesai
+                </button>
+            )} */}
+            
 
             {/* Render ringkasan tugas */}
             <TaskSummary

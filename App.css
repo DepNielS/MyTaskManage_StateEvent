@@ -1044,6 +1044,88 @@ footer {
     }
 }
 
+/* =========================================================
+   TASK SEARCH
+========================================================= */
+
+.task-search {
+    position: relative;
+
+    width: 100%;
+
+    margin-bottom: 25px;
+}
+
+
+/* Search Input */
+
+.task-search input {
+    width: 100%;
+
+    height: 52px;
+
+    padding: 0 18px;
+
+    border: 1px solid #dfe3ef;
+
+    border-radius: 13px;
+
+    background: rgba(255, 255, 255, 0.95);
+
+    color: #172033;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    box-shadow:
+        0 4px 12px rgba(15, 23, 42, 0.04);
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+/* Placeholder */
+
+.task-search input::placeholder {
+    color: #94a3b8;
+
+    transition:
+        color 0.25s ease;
+}
+
+
+/* Hover */
+
+.task-search input:hover {
+    border-color: #c4b5fd;
+}
+
+
+/* Focus */
+
+.task-search input:focus {
+    outline: none;
+
+    border-color: #6366f1;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 0 0 4px rgba(99, 102, 241, 0.10),
+        0 8px 20px rgba(79, 70, 229, 0.08);
+}
+
+
+/* Placeholder ketika focus */
+
+.task-search input:focus::placeholder {
+    color: #c4b5fd;
+}
+
 
 /* =========================================================
    MOBILE
