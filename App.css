@@ -340,6 +340,219 @@ body {
     list-style: none;
 }
 
+.task-filter {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    width: fit-content;
+
+    margin: 0 auto 25px;
+
+    padding: 6px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f8f7ff,
+            #f1f5ff
+        );
+
+    border: 1px solid #e2e5f0;
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 6px 18px rgba(79, 70, 229, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+
+/* =========================================================
+   FILTER BUTTON
+========================================================= */
+
+.task-filter button {
+    position: relative;
+
+    min-width: 110px;
+
+    padding: 10px 16px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: transparent;
+
+    color: #64748b;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.1px;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    transition:
+        color 0.25s ease,
+        background 0.25s ease,
+        transform 0.2s ease,
+        box-shadow 0.25s ease;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.task-filter button:hover {
+    color: #4f46e5;
+
+    background: rgba(255, 255, 255, 0.75);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   ACTIVE BUTTON
+========================================================= */
+
+.task-filter button.active {
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #7c3aed
+        );
+
+    box-shadow:
+        0 6px 15px rgba(99, 102, 241, 0.25);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   ACTIVE HOVER
+========================================================= */
+
+.task-filter button.active:hover {
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #5b5ff0,
+            #7134dc
+        );
+
+    box-shadow:
+        0 9px 20px rgba(99, 102, 241, 0.30);
+}
+
+
+/* =========================================================
+   ACTIVE DECORATION
+========================================================= */
+
+.task-filter button.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 3px;
+
+    width: 18px;
+
+    height: 3px;
+
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 0.75);
+
+    transform: translateX(-50%);
+}
+
+
+/* =========================================================
+   CLICK EFFECT
+========================================================= */
+
+.task-filter button:active {
+    transform: scale(0.96);
+}
+
+
+/* =========================================================
+   FOCUS
+========================================================= */
+
+.task-filter button:focus-visible {
+    outline: none;
+
+    box-shadow:
+        0 0 0 3px rgba(99, 102, 241, 0.20);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .task-filter {
+        display: grid;
+
+        grid-template-columns: repeat(3, 1fr);
+
+        width: 100%;
+
+        gap: 5px;
+
+        margin-bottom: 22px;
+
+        padding: 5px;
+    }
+
+
+    .task-filter button {
+        min-width: 0;
+
+        width: 100%;
+
+        padding: 10px 6px;
+
+        font-size: 12px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .task-filter button {
+        padding: 9px 4px;
+
+        font-size: 11px;
+    }
+}
 
 /* =========================================================
    TASK ITEM

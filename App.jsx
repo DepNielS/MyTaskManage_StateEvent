@@ -1,5 +1,4 @@
-
-
+// Komponen untuk menampilkan header aplikasi
 function Header() {
     return (
         <header>
@@ -10,6 +9,7 @@ function Header() {
     );
 }
 
+// Komponen untuk menambahkan tugas baru
 function TaskForm({task, setTask, addTask}) {
     return (
         <div className="task-form">
@@ -24,6 +24,7 @@ function TaskForm({task, setTask, addTask}) {
     );
 }
 
+// Komponen untuk menampilkan daftar tugas
 function TaskList({tasks, deleteTask, toogleTask}) {
 
     return (
@@ -59,25 +60,67 @@ function TaskList({tasks, deleteTask, toogleTask}) {
     );
 }
 
-function TaskSummary({tasks}) {
-    const completedTasks = tasks.filter((task) => task.completed);
+// Komponen untuk menampilkan ringkasan tugas (total tugas dan tugas selesai)
+function TaskSummary({totalTasks, completedTasks}) {
 
     return (
         <div className="task-summary">
             <h2> 
-                <p> Total Tugas: <strong>{tasks.length}</strong> </p> 
-                <p> Tugas Selesai: <strong>{completedTasks.length}</strong> </p>
+                <p> Total Tugas: <strong>{""}{totalTasks}</strong> </p> 
+                <p> Tugas Selesai: <strong>{""}{completedTasks}</strong> </p>
             </h2>
         </div>
 
     );
 }
+
+// Komponen untuk memfilter tugas berdasarkan status (semua, aktif, selesai)
+function TaskFilter({filter, setFilter, totalTasks, activeTasks, completedTasks}) {
+    return (
+
+        <div className="task-filter">
+
+            <button
+            className={filter === "all" ? "active" : ""}
+            onClick={() => setFilter("all")}
+            >
+                Semua ({totalTasks})
+            </button>
+
+            <button
+            className={filter === "active" ? "active" : ""}
+            onClick={() => setFilter("active")}
+            >
+                Aktif ({activeTasks})
+            </button>
+            
+            <button
+            className={filter === "completed" ? "active" : ""}
+            onClick={() => setFilter("completed")}
+            >
+                Selesai ({completedTasks})
+            </button>
+
+            
+        </div>
+    );
+}
+
 function App() {
     //State untuk menyimpan Input daftar tugas
     const [task, setTask] = React.useState("");
 
     //State untuk menyimpan semua tugas
     const [tasks, setTasks] = React.useState([]);
+    
+    //State untuk menyimpan filter tugas
+    const [filter, setFilter] = React.useState("all");
+
+    //Mengambil daftar tugas yang belum selesai dan yang sudah selesai
+    const activeTasks = tasks.filter((task) => !task.completed);
+    
+    //Mengambil daftar tugas yang sudah selesai
+    const completedTasks = tasks.filter((task) => task.completed);
 
     //Fungsi untuk menambahkan tugas baru ke daftar tugas
     const addTask = () => {
@@ -114,25 +157,49 @@ function App() {
         setTasks(updatedTasks);
     };
 
+    // Filter tugas berdasarkan status (semua, aktif, selesai)
+    const filteredTasks = tasks.filter((task) => {
+        if (filter === "active") {
+            return !task.completed;
+        }
+        if (filter === "completed") {
+            return task.completed;
+        }
+        return true;
+    });
+
+    // Render komponen utama aplikasi
     return (
         <div className="container">
         <Header />
 
         <main>
+            {/* Form untuk menambahkan tugas baru */}
             <TaskForm
             task={task}
             setTask={setTask}
             addTask={addTask}
             />
 
+            {/* Render daftar tugas yang telah difilter */}
             <TaskList 
-            tasks={tasks}
+            tasks={filteredTasks}
             deleteTask={deleteTask}
             toogleTask={toogleTask}
             />
 
+            {/* Render komponen filter tugas dan ringkasan tugas */}
+            <TaskFilter
+            filter={filter}
+            setFilter={setFilter}
+            totalTasks={tasks.length}
+            completedTasks={completedTasks.length}
+            activeTasks={activeTasks.length}/>
+
+            {/* Render ringkasan tugas */}
             <TaskSummary
-             tasks={tasks}
+             totalTasks={tasks.length}
+             completedTasks={completedTasks.length}
             />
 
         </main>
