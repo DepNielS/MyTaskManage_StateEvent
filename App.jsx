@@ -1,18 +1,49 @@
-// Komponen untuk menampilkan header aplikasi
+// ================================
+// HEADER COMPONENT
+// ================================
+
 function Header() {
     return (
-        <header>
-            <h1>My Task Manager 🦑</h1>
-            <br></br>
+        <header className="hero">
+            <div className="hero-main">
 
-            <p>Mengelola tugas-tugasmu dengan mudah dan efisien.</p>
-            <br></br>
+                <div className="app-icon">
+                    ✓
+                </div>
+
+                <div className="hero-content">
+                    <h1>
+                        My <span>Task Manager</span>
+                    </h1>
+
+                    <p className="hero-subtitle">
+                        Kelola tugasmu, capai tujuanmu 🚀
+                    </p>
+                </div>
+
+            </div>
+
+            <div className="hero-quote">
+                <span>"Small steps</span>
+                <span>make big progress"</span>
+            </div>
+
+            <div className="hero-decoration">
+                📋
+            </div>
+
+            <p className="hero-description">
+                Rencanakan, kerjakan, dan selesaikan tugas dengan lebih mudah dan efisien.
+            </p>
         </header>
     );
 }
 
 
-// Komponen untuk menambahkan tugas baru
+// ================================
+// TASK FORM COMPONENT
+// ================================
+
 function TaskForm({
     task,
     setTask,
@@ -21,9 +52,11 @@ function TaskForm({
     editingId,
     cancelEdit
 }) {
-    // Fungsi untuk menangani penekanan tombol Enter pada input
+
     const handleKeyPress = (e) => {
+
         if (e.key === "Enter") {
+
             if (editingId === null) {
                 addTask();
             } else {
@@ -32,6 +65,7 @@ function TaskForm({
         }
 
         if (e.key === "Escape") {
+
             if (editingId !== null) {
                 cancelEdit();
             }
@@ -40,22 +74,52 @@ function TaskForm({
 
     return (
         <div className="task-form">
-            <input
-                type="text"
-                placeholder="Masukkan Tugas Yang Baru"
-                value={task}
-                maxLength={100}
-                onChange={(e) => setTask(e.target.value)}
-                onKeyDown={handleKeyPress}
-            />
+
+            <div className="plus-icon">
+                +
+            </div>
+
+            <div className="task-input-wrapper">
+
+                <input
+                    type="text"
+                    placeholder={
+                        editingId === null
+                            ? "Masukkan Tugas Baru..."
+                            : "Edit tugas..."
+                    }
+                    value={task}
+                    maxLength={100}
+                    onChange={(e) => setTask(e.target.value)}
+                    onKeyDown={handleKeyPress}
+                />
+
+            </div>
 
             <div className="task-form-info">
-                <span>{task.length}/100</span>
+                <span>
+                    {task.length}/100
+                </span>
             </div>
 
             <div className="task-form-actions">
-                <button onClick={editingId === null ? addTask : updateTask}>
-                    {editingId === null ? "Tambah Tugas" : "Simpan Tugas"}
+
+                <button
+                    className="primary-button"
+                    onClick={
+                        editingId === null
+                            ? addTask
+                            : updateTask
+                    }
+                >
+                    <span>
+                        {editingId === null ? "➤" : "✓"}
+                    </span>
+
+                    {editingId === null
+                        ? "Tambah Tugas"
+                        : "Simpan Tugas"
+                    }
                 </button>
 
                 {editingId !== null && (
@@ -66,27 +130,49 @@ function TaskForm({
                         Batal
                     </button>
                 )}
+
             </div>
+
         </div>
     );
 }
 
 
-// Komponen untuk mencari tugas berdasarkan kata kunci
-function TaskSearch({ search, setSearch }) {
+// ================================
+// SEARCH COMPONENT
+// ================================
+
+function TaskSearch({
+    search,
+    setSearch
+}) {
     return (
         <div className="task-search">
+
+            <div className="search-icon">
+                ⌕
+            </div>
+
             <input
                 type="text"
-                placeholder="Cari Tugas..."
+                placeholder="Cari tugas..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
             />
+
+            <div className="search-shortcut">
+                Ctrl + K
+            </div>
+
         </div>
     );
 }
 
-// Komponen untuk memfilter tugas berdasarkan status (semua, aktif, selesai)
+
+// ================================
+// FILTER COMPONENT
+// ================================
+
 function TaskFilter({
     filter,
     setFilter,
@@ -94,120 +180,306 @@ function TaskFilter({
     activeTasks,
     completedTasks
 }) {
+
     return (
         <div className="task-filter">
+
             <button
                 className={filter === "all" ? "active" : ""}
                 onClick={() => setFilter("all")}
             >
+                <span className="filter-icon">
+                    ▦
+                </span>
+
                 Semua ({totalTasks})
             </button>
+
 
             <button
                 className={filter === "active" ? "active" : ""}
                 onClick={() => setFilter("active")}
             >
+                <span className="filter-icon">
+                    ◷
+                </span>
+
                 Aktif ({activeTasks})
             </button>
 
+
             <button
-                className={filter === "completed" ? "active" : ""}
+                className={
+                    filter === "completed"
+                        ? "active"
+                        : ""
+                }
                 onClick={() => setFilter("completed")}
             >
+                <span className="filter-icon">
+                    ✓
+                </span>
+
                 Selesai ({completedTasks})
             </button>
+
         </div>
     );
 }
 
-// Komponen untuk menampilkan daftar tugas
+
+// ================================
+// TASK LIST COMPONENT
+// ================================
+
 function TaskList({
     tasks,
     deleteTask,
     toogleTask,
     startEdit
 }) {
+
     return (
         <div className="task-list">
-            <h2>Daftar Tugas</h2>
+
+            <div className="task-list-header">
+
+                <div className="task-title-wrapper">
+
+                    <div className="task-title-line"></div>
+
+                    <h2>
+                        Daftar Tugas
+                    </h2>
+
+                </div>
+
+                <button className="sort-button">
+                    ⇅ &nbsp; Terbaru &nbsp;⌄
+                </button>
+
+            </div>
+
 
             {tasks.length === 0 ? (
-                <p className="empty-task">
-                    Tidak ada tugas yang tersedia.
-                </p>
+
+                <div className="empty-task">
+
+                    <div className="empty-icon">
+                        ✓
+                    </div>
+
+                    <h3>
+                        Tidak ada tugas
+                    </h3>
+
+                    <p>
+                        Tambahkan tugas baru untuk memulai produktivitasmu.
+                    </p>
+
+                </div>
+
             ) : (
+
                 <ul>
+
                     {tasks.map((task) => (
+
                         <li
-                            className={`task-item ${
-                                task.completed ? "completed" : ""
-                            }`}
+                            className={
+                                `task-item ${
+                                    task.completed
+                                        ? "completed"
+                                        : ""
+                                }`
+                            }
                             key={task.id}
                         >
-                            <div className="task-content">
-                                <input
-                                    type="checkbox"
-                                    checked={task.completed}
-                                    onChange={() => toogleTask(task.id)}
-                                />
 
-                                <span>{task.title}</span>
+                            <div className="task-content">
+
+                                <button
+                                    className={
+                                        `task-checkbox ${
+                                            task.completed
+                                                ? "checked"
+                                                : ""
+                                        }`
+                                    }
+                                    onClick={() =>
+                                        toogleTask(task.id)
+                                    }
+                                    aria-label={
+                                        task.completed
+                                            ? "Tandai belum selesai"
+                                            : "Tandai selesai"
+                                    }
+                                >
+                                    {task.completed && "✓"}
+                                </button>
+
+
+                                <div className="task-information">
+
+                                    <span className="task-name">
+                                        {task.title}
+                                    </span>
+
+                                    <span className="task-date">
+                                        📅 Ditambahkan baru saja
+                                    </span>
+
+                                </div>
+
                             </div>
 
+
                             <div className="task-actions">
+
                                 <button
                                     className="edit-button"
-                                    onClick={() => startEdit(task)}
+                                    onClick={() =>
+                                        startEdit(task)
+                                    }
                                 >
-                                    Edit
+                                    ✎ &nbsp; Edit
                                 </button>
+
 
                                 <button
                                     className="delete-button"
-                                    onClick={() => deleteTask(task.id)}
+                                    onClick={() =>
+                                        deleteTask(task.id)
+                                    }
                                 >
-                                    Hapus
+                                    🗑 &nbsp; Hapus
                                 </button>
+
                             </div>
+
                         </li>
+
                     ))}
+
                 </ul>
+
             )}
+
         </div>
     );
 }
 
 
-// Komponen untuk menampilkan ringkasan tugas (total tugas dan tugas selesai)
+// ================================
+// TASK SUMMARY COMPONENT
+// ================================
+
 function TaskSummary({
     totalTasks,
     activeTasks,
     completedTasks
 }) {
+
     return (
         <div className="task-summary">
-            <h2>
-                <p>
-                    Total Tugas: <strong>{""}{totalTasks}</strong>
-                </p>
-                <p>
-                    Tugas Aktif: <strong>{""}{activeTasks}</strong></p>
-                <p>
-                    Tugas Selesai: <strong>{""}{completedTasks}</strong>
-                </p>
-            </h2>
+
+            {/* TOTAL */}
+            <div className="summary-card summary-total">
+
+                <div className="summary-icon">
+                    📄
+                </div>
+
+                <div className="summary-content">
+
+                    <p>
+                        Total Tugas
+                    </p>
+
+                    <strong>
+                        {totalTasks}
+                    </strong>
+
+                    <span>
+                        Semua tugas
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            {/* ACTIVE */}
+            <div className="summary-card summary-active">
+
+                <div className="summary-icon">
+                    ◷
+                </div>
+
+                <div className="summary-content">
+
+                    <p>
+                        Tugas Aktif
+                    </p>
+
+                    <strong>
+                        {activeTasks}
+                    </strong>
+
+                    <span>
+                        Sedang dikerjakan
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            {/* COMPLETED */}
+            <div className="summary-card summary-completed">
+
+                <div className="summary-icon">
+                    ✓
+                </div>
+
+                <div className="summary-content">
+
+                    <p>
+                        Tugas Selesai
+                    </p>
+
+                    <strong>
+                        {completedTasks}
+                    </strong>
+
+                    <span>
+                        Sudah diselesaikan
+                    </span>
+
+                </div>
+
+            </div>
+
         </div>
     );
 }
 
 
+// ================================
+// MAIN APP
+// ================================
+
 function App() {
-    // State untuk menyimpan Input daftar tugas
+
+    // State input task
     const [task, setTask] = React.useState("");
 
-    // State untuk menyimpan semua tugas
+
+    // State daftar tasks
     const [tasks, setTasks] = React.useState(() => {
-        const savedTasks = localStorage.getItem("tasks");
+
+        const savedTasks =
+            localStorage.getItem("tasks");
 
         if (savedTasks) {
             return JSON.parse(savedTasks);
@@ -216,202 +488,367 @@ function App() {
         return [];
     });
 
-    // State untuk menyimpan filter tugas
-    const [filter, setFilter] = React.useState("all");
-    
-    // State untuk menyimpan ID tugas yang sedang diedit
-    const [editingId, setEditingId] = React.useState(null);
 
-    // State untuk menyimpan kata kunci pencarian tugas
-    const [search, setSearch] = React.useState("");
-    
-    // Menyimpan daftar tugas ke localStorage setiap kali ada perubahan pada daftar tugas
+    // State filter
+    const [filter, setFilter] =
+        React.useState("all");
+
+
+    // State editing
+    const [editingId, setEditingId] =
+        React.useState(null);
+
+
+    // State search
+    const [search, setSearch] =
+        React.useState("");
+
+
+    // Simpan tasks ke localStorage
     React.useEffect(() => {
-        localStorage.setItem("tasks", JSON.stringify(tasks));
+
+        localStorage.setItem(
+            "tasks",
+            JSON.stringify(tasks)
+        );
+
     }, [tasks]);
 
-    // Mengambil daftar tugas yang belum selesai dan yang sudah selesai
-    const activeTasks = tasks.filter((task) => !task.completed);
 
-    // Mengambil daftar tugas yang sudah selesai
-    const completedTasks = tasks.filter((task) => task.completed);
+    // ================================
+    // TASK COUNTS
+    // ================================
 
-       // Filter tugas berdasarkan status (semua, aktif, selesai)
-    const filteredTasks = tasks.filter((task) => {
-        if (filter === "active" && task.completed) {
-            return false;
-        }
+    const activeTasks =
+        tasks.filter(
+            (task) => !task.completed
+        );
 
-        if (filter === "completed" && !task.completed) {
-            return false;
-        }
+    const completedTasks =
+        tasks.filter(
+            (task) => task.completed
+        );
 
-        const searchedText = search.toLowerCase().trim();
-        const taskTitle = task.title.toLowerCase();
 
-        if (!taskTitle.includes(searchedText)) {
-            return false;
-        }
+    // ================================
+    // FILTER + SEARCH
+    // ================================
 
-        return true;
-    });
+    const filteredTasks =
+        tasks.filter((task) => {
 
-    // Fungsi untuk menambahkan tugas baru ke daftar tugas
+            // Filter status
+            if (
+                filter === "active" &&
+                task.completed
+            ) {
+                return false;
+            }
+
+            if (
+                filter === "completed" &&
+                !task.completed
+            ) {
+                return false;
+            }
+
+
+            // Search
+            const searchedText =
+                search.toLowerCase().trim();
+
+            const taskTitle =
+                task.title.toLowerCase();
+
+
+            if (
+                !taskTitle.includes(searchedText)
+            ) {
+                return false;
+            }
+
+
+            return true;
+        });
+
+
+    // ================================
+    // ADD TASK
+    // ================================
+
     const addTask = () => {
-        const cleanedTask = task.trim();
+
+        const cleanedTask =
+            task.trim();
+
 
         if (cleanedTask === "") {
-            alert("Task Tidak Boleh Kosong!");
+
+            alert(
+                "Task Tidak Boleh Kosong!"
+            );
+
             return;
         }
-        
+
+
         if (cleanedTask.length < 3) {
-            alert("Task Minimal 3 Karakter!");
+
+            alert(
+                "Task Minimal 3 Karakter!"
+            );
+
             return;
         }
+
 
         if (cleanedTask.length > 100) {
-            alert("Task Maksimal 100 Karakter!");
+
+            alert(
+                "Task Maksimal 100 Karakter!"
+            );
+
             return;
         }
 
+
         const newTask = {
+
             id: Date.now(),
+
             title: cleanedTask,
+
             completed: false
         };
+
 
         setTasks([
             ...tasks,
             newTask
         ]);
+
+
         setTask("");
     };
 
 
+    // ================================
+    // CANCEL EDIT
+    // ================================
+
     const cancelEdit = () => {
+
         setTask("");
+
         setEditingId(null);
     };
 
 
-    // Menghapus tugas dari daftar tugas berdasarkan index
+    // ================================
+    // DELETE TASK
+    // ================================
+
     const deleteTask = (id) => {
-        const taskToDelete = tasks.find((task) => task.id == id);
 
-        if(!taskToDelete){
+        const taskToDelete =
+            tasks.find(
+                (task) => task.id === id
+            );
+
+
+        if (!taskToDelete) {
             return;
         }
-        
-        const confirmDelete = window.confirm(`Hapus Task "${taskToDelete.title}"?`);
 
-        if(!confirmDelete){
+
+        const confirmDelete =
+            window.confirm(
+                `Hapus Task "${taskToDelete.title}"?`
+            );
+
+
+        if (!confirmDelete) {
             return;
         }
 
-        const updatedTasks = task.filter((task) => task.id !== id);
+
+        // BUG DARI CODE LAMA DIPERBAIKI
+        // sebelumnya menggunakan task.filter()
+        const updatedTasks =
+            tasks.filter(
+                (task) => task.id !== id
+            );
+
 
         setTasks(updatedTasks);
 
-        if(editingId === id){
+
+        if (editingId === id) {
+
             setTask("");
+
             setEditingId(null);
         }
-        
     };
 
 
-    // Mengubah status tugas menjadi selesai atau belum selesai
-    const toogleTask = (id) => {
-        const updatedTasks = tasks.map((task) => {
-            if (task.id === id) {
-                return {
-                    ...task,
-                    completed: !task.completed
-                };
-            }
+    // ================================
+    // TOGGLE TASK
+    // ================================
 
-            return task;
-        });
+    const toogleTask = (id) => {
+
+        const updatedTasks =
+            tasks.map((task) => {
+
+                if (task.id === id) {
+
+                    return {
+                        ...task,
+                        completed:
+                            !task.completed
+                    };
+                }
+
+                return task;
+            });
+
+
         setTasks(updatedTasks);
     };
 
 
- 
-
+    // ================================
+    // START EDIT
+    // ================================
 
     const startEdit = (task) => {
-        // Set the task to be edited and its ID
+
+        // Task selesai tidak diedit
+        if (task.completed) {
+            return;
+        }
+
+
         setEditingId(task.id);
 
-        // Set the task title in the input field for editing
         setTask(task.title);
     };
 
 
+    // ================================
+    // UPDATE TASK
+    // ================================
+
     const updateTask = () => {
-       const cleanedTask = task.trim();
 
-            if(cleanedTask === ""){
-                alert("Task Tidak Boleh Kosong!");
-                return;
-            }
+        const cleanedTask =
+            task.trim();
 
-            if(cleanedTask.length < 3){
-                alert("Task Minimal 3 Karakter!");
-                return;
-            }
 
-            if(cleanedTask.length > 100){
-                alert("Task Maksimal 100 Karakter!");
-                return;
-       }
-       const updatedTasks = tasks.map((item) => {
-            if(item.id === editingId) {
-                return{...item, title: cleanedTask
-                };
-            }
-            return item;
-       });
+        if (cleanedTask === "") {
+
+            alert(
+                "Task Tidak Boleh Kosong!"
+            );
+
+            return;
+        }
+
+
+        if (cleanedTask.length < 3) {
+
+            alert(
+                "Task Minimal 3 Karakter!"
+            );
+
+            return;
+        }
+
+
+        if (cleanedTask.length > 100) {
+
+            alert(
+                "Task Maksimal 100 Karakter!"
+            );
+
+            return;
+        }
+
+
+        const updatedTasks =
+            tasks.map((item) => {
+
+                if (
+                    item.id === editingId
+                ) {
+
+                    return {
+                        ...item,
+                        title: cleanedTask
+                    };
+                }
+
+                return item;
+            });
+
 
         setTasks(updatedTasks);
-        setTask("");
-        setEditingId(null);
 
+        setTask("");
+
+        setEditingId(null);
     };
 
-    const clearCompletedTasks = () => {
-            if(completedTasks.length === 0){
-                return;
-            }
-        const confirmClear = window.confirm(`Hapus ${completedTasks.length} task yang sudah selesai?`);
-        
-            if(!confirmClear){
-                return;
-            }
 
-        const activeOnly = tasks.filter((task) => !task.completed);
+    // ================================
+    // CLEAR COMPLETED
+    // ================================
+
+    const clearCompletedTasks = () => {
+
+        if (
+            completedTasks.length === 0
+        ) {
+            return;
+        }
+
+
+        const confirmClear =
+            window.confirm(
+                `Hapus ${completedTasks.length} task yang sudah selesai?`
+            );
+
+
+        if (!confirmClear) {
+            return;
+        }
+
+
+        const activeOnly =
+            tasks.filter(
+                (task) => !task.completed
+            );
+
 
         setTasks(activeOnly);
     };
 
-    const editingTask = tasks.find((task) => task.id === editingId);
 
+    // ================================
+    // RENDER
+    // ================================
 
-            if(editingTask && editingTask.completed){
-                setTask("");
-                setEditingId(null);
-            }
-
-
-    // Render komponen utama aplikasi
     return (
+
         <div className="container">
 
             <Header />
 
+
             <main>
-                {/* Form untuk menambahkan tugas baru */}
+
+                {/* FORM */}
                 <TaskForm
                     task={task}
                     setTask={setTask}
@@ -421,22 +858,25 @@ function App() {
                     cancelEdit={cancelEdit}
                 />
 
+
+                {/* SEARCH */}
                 <TaskSearch
                     search={search}
                     setSearch={setSearch}
                 />
 
-                {/* Render komponen filter tugas dan ringkasan tugas */}
+
+                {/* FILTER */}
                 <TaskFilter
                     filter={filter}
                     setFilter={setFilter}
                     totalTasks={tasks.length}
                     activeTasks={activeTasks.length}
                     completedTasks={completedTasks.length}
-                    
                 />
 
-                {/* Render daftar tugas yang telah difilter berdasarkan status dan pencarian */}
+
+                {/* TASK LIST */}
                 <TaskList
                     tasks={filteredTasks}
                     deleteTask={deleteTask}
@@ -444,25 +884,55 @@ function App() {
                     startEdit={startEdit}
                 />
 
+
+                {/* DELETE COMPLETED */}
                 {completedTasks.length > 0 && (
-                    <button
-                        className="clear-completed"
-                        onClick={clearCompletedTasks}
-                    >
-                        Hapus Semua Tugas Selesai
-                    </button>
+
+                    <div className="clear-completed-wrapper">
+
+                        <button
+                            className="clear-completed"
+                            onClick={
+                                clearCompletedTasks
+                            }
+                        >
+                            🗑 &nbsp;
+                            Hapus Semua Tugas Selesai
+                        </button>
+
+                    </div>
+
                 )}
 
-                {/* Render ringkasan tugas */}
+
+                {/* SUMMARY */}
                 <TaskSummary
-                    activeTasks={activeTasks.length}
-                    completedTasks={completedTasks.length}
-                    totalTasks={tasks.length}
+                    activeTasks={
+                        activeTasks.length
+                    }
+                    completedTasks={
+                        completedTasks.length
+                    }
+                    totalTasks={
+                        tasks.length
+                    }
                 />
+
             </main>
 
+
+            {/* FOOTER */}
             <footer>
-                @2026 My Task Manager. All rights reserved.
+
+                <p>
+                    ❤️ &nbsp;
+                    Tetap produktif, hari ini lebih baik dari kemarin!
+                </p>
+
+                <span>
+                    ©2026 My Task Manager. All rights reserved.
+                </span>
+
             </footer>
 
         </div>
@@ -470,9 +940,17 @@ function App() {
 }
 
 
-const container = document.getElementById("root");
+// ================================
+// REACT ROOT
+// ================================
 
-const root = ReactDOM.createRoot(container);
+const container =
+    document.getElementById("root");
+
+
+const root =
+    ReactDOM.createRoot(container);
+
 
 root.render(
     <App />
